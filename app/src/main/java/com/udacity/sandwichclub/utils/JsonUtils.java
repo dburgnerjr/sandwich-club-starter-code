@@ -24,19 +24,21 @@ public class JsonUtils {
         strPlaceOfOrigin = name.getString("placeOfOrigin");
         strDescription = name.getString("description");
         strImage = name.getString("image");
-        JSONArray jsnaAKA = jsonObject.getJSONArray("alsoKnownAs");
 
-        JSONArray jsonArray = jsonObject.getJSONArray(json);
-        JSONArray ingredientArray = jsonObject.getJSONArray("ingredients");
-        List<String> lstAKA = new ArrayList<>();
+        List<String> lstAKA = new ArrayList<String>();
+        if (name.has("alsoKnownAs")) {
+            JSONArray jsnaAKA = name.getJSONArray("alsoKnownAs");
 
-        //Iterate through the array of aka and add it to list
-        for (int i = 0; i < jsnaAKA.length(); i++) {
-            String strAlsoKnownAs = jsnaAKA.getString(i);
-            lstAKA.add(strAlsoKnownAs);
+            //Iterate through the array of jsnaAKA and add it to list
+            for (int i = 0; i < jsnaAKA.length(); i++) {
+                String strAlsoKnownAs = jsnaAKA.getString(i);
+                lstAKA.add(strAlsoKnownAs);
+            }
         }
 
-        List<String> lstIngredients = new ArrayList<>();
+        JSONArray ingredientArray = name.getJSONArray("ingredients");
+
+        List<String> lstIngredients = new ArrayList<String>();
         for (int i = 0; i < ingredientArray.length(); i++) {
             lstIngredients.add(ingredientArray.getString(i));
         }

@@ -22,16 +22,22 @@ public class DetailActivity extends AppCompatActivity {
     private static final int DEFAULT_POSITION = -1;
     private static int nPosition;
 
+    private ImageView ivSandwich;
+    private TextView tvIngredients;
+    private TextView tvDescription;
+    private TextView tvPlaceOfOrigin;
+    private TextView tvAlsoKnownAs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        ImageView ivSandwich = findViewById(R.id.image_iv);
-        TextView tvIngredients = findViewById(R.id.ingredients_tv);
-        TextView tvDescription = findViewById(R.id.description_tv);
-        TextView tvPlaceOfOrigin = findViewById(R.id.origin_tv);
-        TextView tvAlsoKnownAs = findViewById(R.id.also_known_tv);
+        ivSandwich = findViewById(R.id.image_iv);
+        tvIngredients = findViewById(R.id.ingredients_tv);
+        tvDescription = findViewById(R.id.description_tv);
+        tvPlaceOfOrigin = findViewById(R.id.origin_tv);
+        tvAlsoKnownAs = findViewById(R.id.also_known_tv);
 
         Intent intent = getIntent();
         if (intent == null) {
@@ -56,16 +62,11 @@ public class DetailActivity extends AppCompatActivity {
                 return;
             }
 
-            populateUI();
+            populateUI(sandwich);
             Picasso.with(this)
                     .load(sandwich.getImage())
                     .into(ivSandwich);
 
-            setTitle(sandwich.getMainName());
-            tvIngredients.setText(sandwich.getIngredients().toString());
-            tvAlsoKnownAs.setText(sandwich.getAlsoKnownAs().toString());
-            tvDescription.setText(sandwich.getDescription());
-            tvPlaceOfOrigin.setText(sandwich.getPlaceOfOrigin());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -77,7 +78,11 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
-    private void populateUI() {
-
+    private void populateUI(Sandwich sandwich) {
+        setTitle(sandwich.getMainName());
+        tvIngredients.setText(sandwich.getIngredients().toString());
+        tvAlsoKnownAs.setText(sandwich.getAlsoKnownAs().toString());
+        tvDescription.setText(sandwich.getDescription());
+        tvPlaceOfOrigin.setText(sandwich.getPlaceOfOrigin());
     }
 }
