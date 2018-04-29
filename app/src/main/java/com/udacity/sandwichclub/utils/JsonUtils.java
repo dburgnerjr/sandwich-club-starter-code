@@ -21,9 +21,9 @@ public class JsonUtils {
         JSONObject jsonObject = new JSONObject(json);
         JSONObject name = jsonObject.getJSONObject("name");
         strMainName = name.getString("mainName");
-        strPlaceOfOrigin = name.getString("placeOfOrigin");
-        strDescription = name.getString("description");
-        strImage = name.getString("image");
+        strPlaceOfOrigin = jsonObject.getString("placeOfOrigin");
+        strDescription = jsonObject.getString("description");
+        strImage = jsonObject.getString("image");
 
         List<String> lstAKA = new ArrayList<String>();
         if (name.has("alsoKnownAs")) {
@@ -36,7 +36,7 @@ public class JsonUtils {
             }
         }
 
-        JSONArray ingredientArray = name.getJSONArray("ingredients");
+        JSONArray ingredientArray = jsonObject.getJSONArray("ingredients");
 
         List<String> lstIngredients = new ArrayList<String>();
         for (int i = 0; i < ingredientArray.length(); i++) {

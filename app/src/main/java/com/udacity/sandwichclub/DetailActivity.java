@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +27,9 @@ public class DetailActivity extends AppCompatActivity {
     private TextView tvIngredients;
     private TextView tvDescription;
     private TextView tvPlaceOfOrigin;
+    private TextView tvPlaceOfOriginLabel;
     private TextView tvAlsoKnownAs;
+    private TextView tvAlsoKnownAsLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +82,42 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI(Sandwich sandwich) {
+        tvPlaceOfOriginLabel = findViewById(R.id.origin_tv_label);
+        tvAlsoKnownAsLabel = findViewById(R.id.also_known_tv_label);
         setTitle(sandwich.getMainName());
-        tvIngredients.setText(sandwich.getIngredients().toString());
-        tvAlsoKnownAs.setText(sandwich.getAlsoKnownAs().toString());
-        tvDescription.setText(sandwich.getDescription());
+
+        if (sandwich.getAlsoKnownAs().size() == 0) {
+            tvAlsoKnownAsLabel.setVisibility(View.GONE);
+            tvAlsoKnownAs.setVisibility(View.GONE);
+        } else {
+            tvAlsoKnownAsLabel.setVisibility(View.VISIBLE);
+            tvAlsoKnownAs.setVisibility(View.VISIBLE);
+        }
+
+        for (int nI = 0; nI < sandwich.getAlsoKnownAs().size(); nI++) {
+            if (nI != (sandwich.getAlsoKnownAs().size() - 1)) {
+                tvAlsoKnownAs.append(sandwich.getAlsoKnownAs().get(nI) + ", ");
+            } else {
+                tvAlsoKnownAs.append(sandwich.getAlsoKnownAs().get(nI));
+            }
+        }
+
+        if (sandwich.getPlaceOfOrigin().isEmpty()) {
+            tvPlaceOfOriginLabel.setVisibility(View.GONE);
+            tvPlaceOfOrigin.setVisibility(View.GONE);
+        }
         tvPlaceOfOrigin.setText(sandwich.getPlaceOfOrigin());
+
+
+        for (int nJ = 0; nJ < sandwich.getIngredients().size(); nJ++) {
+            if (nJ != (sandwich.getIngredients().size() - 1)) {
+                tvIngredients.append(sandwich.getIngredients().get(nJ) + ", ");
+            } else {
+                tvIngredients.append(sandwich.getIngredients().get(nJ) );
+            }
+        }
+
+        tvDescription.setText(sandwich.getDescription());
+
     }
 }
