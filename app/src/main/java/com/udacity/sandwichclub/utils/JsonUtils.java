@@ -25,7 +25,7 @@ public class JsonUtils {
         strDescription = jsonObject.getString("description");
         strImage = jsonObject.getString("image");
 
-        List<String> lstAKA = new ArrayList<String>();
+        List<String> lstAKA = new ArrayList<>();
         if (name.has("alsoKnownAs")) {
             JSONArray jsnaAKA = name.getJSONArray("alsoKnownAs");
 
@@ -38,13 +38,13 @@ public class JsonUtils {
 
         JSONArray ingredientArray = jsonObject.getJSONArray("ingredients");
 
-        List<String> lstIngredients = new ArrayList<String>();
+        List<String> lstIngredients = new ArrayList<>();
         for (int i = 0; i < ingredientArray.length(); i++) {
             lstIngredients.add(ingredientArray.getString(i));
         }
 
-        Sandwich sandwich = new Sandwich(strMainName, lstAKA, strPlaceOfOrigin, strDescription, strImage, lstIngredients);
+        Sandwich sandwich;
+        sandwich = new Sandwich(strMainName, lstAKA, strPlaceOfOrigin, strDescription, strImage, lstIngredients);
         return sandwich;
-
     }
 }

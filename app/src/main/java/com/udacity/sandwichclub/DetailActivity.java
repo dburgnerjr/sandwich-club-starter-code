@@ -1,7 +1,6 @@
 package com.udacity.sandwichclub;
 
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
@@ -21,13 +20,13 @@ public class DetailActivity extends AppCompatActivity {
     private static final int DEFAULT_POSITION = -1;
     private static int nPosition;
 
-    private ImageView ivSandwich;
+    ImageView ivSandwich;
     private TextView tvIngredients;
     private TextView tvDescription;
     private TextView tvPlaceOfOrigin;
-    private TextView tvPlaceOfOriginLabel;
+    TextView tvPlaceOfOriginLabel;
     private TextView tvAlsoKnownAs;
-    private TextView tvAlsoKnownAsLabel;
+    TextView tvAlsoKnownAsLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,8 @@ public class DetailActivity extends AppCompatActivity {
             closeOnError();
         }
 
-        nPosition = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
+        if (intent != null)
+            nPosition = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
 
         if (nPosition == DEFAULT_POSITION) {
             // EXTRA_POSITION not found in intent
@@ -64,7 +64,7 @@ public class DetailActivity extends AppCompatActivity {
             }
 
             populateUI(sandwich);
-            Picasso.with(this)
+            Picasso.get()
                     .load(sandwich.getImage())
                     .into(ivSandwich);
 
