@@ -57,11 +57,6 @@ public class DetailActivity extends AppCompatActivity {
         String json = sandwiches[nPosition];
         try {
             Sandwich sandwich = JsonUtils.parseSandwichJson(json);
-            if (sandwich == null) {
-                // Sandwich data unavailable
-                closeOnError();
-                return;
-            }
 
             populateUI(sandwich);
             Picasso.get()
